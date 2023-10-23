@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "282266489665",
+    "project_id": "pr-b113a",
+    "storage_bucket": "pr-b113a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:282266489665:android:9b3d0ac3c64c49b27107c0",
+        "android_client_info": {
+          "package_name": "com.example.a20pr"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyConLyyByVLmvmC0U19tR2W-QjWXIFa8m8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

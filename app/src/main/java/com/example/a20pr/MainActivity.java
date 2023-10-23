@@ -58,8 +58,14 @@ public class MainActivity extends AppCompatActivity {
                 // Сохраняем объект пользователя в базе данных по сгенерированному ключу
                 myRef1.child(key).setValue(user);
 
-                // Добавляем уникальный ключ к сохраненным элементам
-                savedItems.add("Ключ: " + key);
+
+                // Сохраняем введенные данные
+                savedItems.add("Имя: " + text1);
+                savedItems.add("Фамилия : " + text2);
+                savedItems.add("Номер телефона : " + text3);
+                savedItems.add("Почта : " + text4);
+                savedItems.add("Логин : " + text5);
+                savedItems.add("Пароль : " + text6);
 
                 // Обновляем текст в TextView с сохраненными данными
                 updateListTextView();

@@ -45,7 +45,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
             text1TextView = itemView.findViewById(R.id.text1TextView);
             text2TextView = itemView.findViewById(R.id.text2TextView);
             text3TextView = itemView.findViewById(R.id.text3TextView);
-            //text3TextView = itemView.findViewById(R.id.text3TextView);
+
         }
     }
 }

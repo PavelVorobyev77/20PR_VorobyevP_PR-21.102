@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:hint="Имя"
         tools:ignore="TouchTargetSizeCheck" />
-//fgf
+
     <EditText
         android:id="@+id/editText2"
         android:layout_width="match_parent"

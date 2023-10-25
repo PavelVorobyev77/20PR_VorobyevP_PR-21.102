@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                     // Удаляем элемент из базы данных
                     myReff.child(lastItem).removeValue();
 
-                    // Удаляем элемент из списка///
+                    // Удаляем элемент из списка//
                     savedItems.remove(savedItems.size() - 1);
 
                     // Обновляем адаптер списка

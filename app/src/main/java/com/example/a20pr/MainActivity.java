@@ -2,11 +2,15 @@ package com.example.a20pr;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.auth.User;
+
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,9 +18,10 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private EditText editText1, editText2, editText3, editText4, editText5, editText6;
     private Button saveButton, deleteButton;
-    private TextView listTextView;
+    private ListView listView;
     private List<String> savedItems;
-    private DatabaseReference myRef1;
+    private DatabaseReference myReff;
+    private ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Получаем экземпляр базы данных
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        myRef1 = database.getReference("users2");
+        myReff = database.getReference("user555");
 
         editText1 = findViewById(R.id.editText1);
         editText2 = findViewById(R.id.editText2);
@@ -35,9 +40,11 @@ public class MainActivity extends AppCompatActivity {
         editText6 = findViewById(R.id.editText6);
         saveButton = findViewById(R.id.saveButton);
         deleteButton = findViewById(R.id.deleteButton);
-        listTextView = findViewById(R.id.listTextView);
+        listView = findViewById(R.id.listView);
 
         savedItems = new ArrayList<>();
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, savedItems);
+        listView.setAdapter(adapter);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,25 +57,23 @@ public class MainActivity extends AppCompatActivity {
                 String text6 = editText6.getText().toString();
 
                 // Создаем новый объект пользователя
-                User user = new User(text1, text2, text3, text4, text5, text6);
+                @SuppressLint("RestrictedApi") User user = new User(text1);
 
                 // Генерируем уникальный ключ для нового объекта пользователя
-                String key = myRef1.push().getKey();
+                String key = myReff.push().getKey();
 
                 // Сохраняем объект пользователя в базе данных по сгенерированному ключу
-                myRef1.child(key).setValue(user);
+                myReff.child(key).setValue(user);
 
+                // Сохраняем введенные данные в одной строке
+                String item = "Имя: " + text1 + "\nФамилия: " + text2 + "\nТелефон: " + text3
+                        + "\nПочта: " + text4 + "\nЛогин: " + text5 + "\nПароль: " + text6;
 
-                // Сохраняем введенные данные
-                savedItems.add("Имя: " + text1);
-                savedItems.add("Фамилия : " + text2);
-                savedItems.add("Номер телефона : " + text3);
-                savedItems.add("Почта : " + text4);
-                savedItems.add("Логин : " + text5);
-                savedItems.add("Пароль : " + text6);
+                // Добавляем данные в список
+                savedItems.add(item);
 
-                // Обновляем текст в TextView с сохраненными данными
-                updateListTextView();
+                // Обновляем адаптер списка
+                adapter.notifyDataSetChanged();
 
                 // Очищаем поля ввода
                 editText1.setText("");
@@ -84,49 +89,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!savedItems.isEmpty()) {
-                    // Получаем последний сохраненный элемент (уникальный ключ)
-                    String lastKey = savedItems.get(savedItems.size() - 1);
+                    // Получаем последний сохраненный элемент
+                    String lastItem = savedItems.get(savedItems.size() - 1);
 
                     // Удаляем элемент из базы данных
-                    myRef1.child(lastKey).removeValue();
+                    myReff.child(lastItem).removeValue();
 
-                    // Удаляем ключ из списка сохраненных элементов
+                    // Удаляем элемент из списка
                     savedItems.remove(savedItems.size() - 1);
 
-                    // Обновляем текст в TextView после удаления
-                    updateListTextView();
+                    // Обновляем адаптер списка
+                    adapter.notifyDataSetChanged();
                 }
             }
         });
-    }
-
-    private void updateListTextView() {
-        StringBuilder sb = new StringBuilder();
-        for (String item : savedItems) {
-            sb.append(item).append("\n");
-        }
-        listTextView.setText(sb.toString());
-    }
-}
-
-    class User {
-    public String firstName;
-    public String lastName;
-    public String phoneNumber;
-    public String email;
-    public String username;
-    public String password;
-
-    public User() {
-        // Пустой конструктор требуется для использования с Firebase
-    }
-
-    public User(String firstName, String lastName, String phoneNumber, String email, String username, String password) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.username = username;
-        this.password = password;
     }
 }

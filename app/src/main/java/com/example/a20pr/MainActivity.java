@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Получаем экземпляр базы данных
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        myReff = database.getReference("user555");
+        myReff = database.getReference("user5");
 
         editText1 = findViewById(R.id.editText1);
         editText2 = findViewById(R.id.editText2);

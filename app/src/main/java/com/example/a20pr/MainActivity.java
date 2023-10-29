@@ -62,17 +62,11 @@ public class MainActivity extends AppCompatActivity {
                 // Генерируем уникальный ключ для нового объекта пользователя
                 String key = myReff.push().getKey();
 
-                // Сохраняем объект пользователя в базе данных по сгенерированному ключу
-                myReff.child(key).setValue(user);
+                // так тоже работает добавление
+                //myReff.child(key).setValue(user);
 
-                // Создаем новый объект пользователя для добавления в другую базу данных
-                User newUser = new User(text1, text2, text3, text4, text5, text6);
-
-                // Получаем экземпляр базы данных для второй базы данных
-                DatabaseReference myDataBase = FirebaseDatabase.getInstance().getReference("user");
-
-                // Добавляем нового пользователя во вторую базу данных
-                myDataBase.push().setValue(newUser);
+                // Добавляем нового пользователя
+                myReff.push().setValue(user);
 
                 // Сохраняем введенные данные в одной строке
                 String item = "Имя: " + text1 + "\nФамилия: " + text2 + "\nТелефон: " + text3

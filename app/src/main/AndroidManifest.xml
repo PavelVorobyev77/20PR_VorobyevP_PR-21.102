@@ -12,9 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme._20PR"
         tools:targetApi="31">
-        <activity
-            android:name=".ListItem"
-            android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

@@ -57,13 +57,22 @@ public class MainActivity extends AppCompatActivity {
                 String text6 = editText6.getText().toString();
 
                 // Создаем новый объект пользователя
-                @SuppressLint("RestrictedApi") User user = new User(text1);
+                User user = new User(text1,text2,text3,text4,text5,text6);
 
                 // Генерируем уникальный ключ для нового объекта пользователя
                 String key = myReff.push().getKey();
 
                 // Сохраняем объект пользователя в базе данных по сгенерированному ключу
                 myReff.child(key).setValue(user);
+
+                // Создаем новый объект пользователя для добавления в другую базу данных
+                User newUser = new User(text1, text2, text3, text4, text5, text6);
+
+                // Получаем экземпляр базы данных для второй базы данных
+                DatabaseReference myDataBase = FirebaseDatabase.getInstance().getReference("user");
+
+                // Добавляем нового пользователя во вторую базу данных
+                myDataBase.push().setValue(newUser);
 
                 // Сохраняем введенные данные в одной строке
                 String item = "Имя: " + text1 + "\nФамилия: " + text2 + "\nТелефон: " + text3
@@ -95,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                     // Удаляем элемент из базы данных
                     myReff.child(lastItem).removeValue();
 
-                    // Удаляем элемент из списка//
+                    // Удаляем элемент из списка
                     savedItems.remove(savedItems.size() - 1);
 
                     // Обновляем адаптер списка
@@ -104,4 +113,70 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    public class User {
+        private String firstName;
+        private String lastName;
+        private String phoneNumber;
+        private String email;
+        private String username;
+        private String password;
+
+        public User(String firstName, String lastName, String phoneNumber, String email, String username, String password) {
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.phoneNumber = phoneNumber;
+            this.email = email;
+            this.username = username;
+            this.password = password;
+        }
+        public String getFirstName() {
+            return firstName;
+        }
+
+        public void setFirstName(String firstName) {
+            this.firstName = firstName;
+        }
+
+        public String getLastName() {
+            return lastName;
+        }
+
+        public void setLastName(String lastName) {
+            this.lastName = lastName;
+        }
+
+        public String getPhoneNumber() {
+            return phoneNumber;
+        }
+
+        public void setPhoneNumber(String phoneNumber) {
+            this.phoneNumber = phoneNumber;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
+
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+    }
 }
+

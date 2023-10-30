@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
             return eemail;
         }
 
-        public void setEEmail(String email) {
+        public void setEEmail(String eemail) {
             this.eemail = eemail;
         }
 
@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
             return flogin;
         }
 
-        public void setFLogin(String login) {
+        public void setFLogin(String flogin) {
             this.flogin = flogin;
         }
 
@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
             return gpassword;
         }
 
-        public void setGPassword(String password) {
+        public void setGPassword(String gpassword) {
             this.gpassword = gpassword;
         }
     }
